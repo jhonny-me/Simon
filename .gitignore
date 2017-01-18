@@ -9,6 +9,9 @@ coverage
 # production
 build
 
+# compile
+*-compiled*
+
 # misc
 .DS_Store
 .env

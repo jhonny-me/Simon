@@ -1,0 +1,61 @@
+.container {
+    background-color: gray;
+    width: 300px;
+    height: 300px;
+    margin: 10% auto;
+    border-radius: 50%;
+    position: relative;
+}
+
+.greenBtn {
+    background-color: green;
+    left: 3.33%;
+    top: 3.33%;
+    width: 45%;
+    height: 45%;
+    border-top-left-radius: 100%;
+    position: absolute;
+}
+
+.redBtn {
+    background-color: red;
+    right: 3.33%;
+    top: 3.33%;
+    width: 45%;
+    height: 45%;
+    border-top-right-radius: 100%;
+    position: absolute;
+}
+
+.blueBtn {
+    background-color: blue;
+    right: 3.33%;
+    bottom: 3.33%;
+    width: 45%;
+    height: 45%;
+    border-bottom-right-radius: 100%;
+    position: absolute;
+}
+
+.yellowBtn {
+    background-color: yellow;
+    left: 3.33%;
+    bottom: 3.33%;
+    width: 45%;
+    height: 45%;
+    border-bottom-left-radius: 100%;
+    position: absolute;
+}
+
+.centralControl {
+    background-color: white;
+    top: 25%;
+    right: 25%;
+    bottom: 25%;
+    left: 25%;
+    border-radius: 50%;
+    border: 8px solid gray;
+    position: absolute;
+}
+
+

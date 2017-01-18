@@ -3,10 +3,12 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/.storybook/config-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/stories/App-compiled.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/.storybook/config-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/stories/App-compiled.js" />
     </CLASSES>
     <SOURCES />
   </library>
