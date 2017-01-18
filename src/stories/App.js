@@ -18,8 +18,23 @@ export default class App extends Component {
                     <div className="centralControl">
                         <div>
                             <h2>Simon™️</h2>
+                            <div className="middleArea">
+                                <div>
+                                    <h2 className="countBox">--</h2>
+                                    <h3 className="subTitle">COUNT</h3>
+                                </div>
+                                <div>
+                                    <button className="startBtn"></button>
+                                    <h3 className="subTitle">START</h3>
+                                </div>
+                                <div>
+                                    <div className="strictIndicator"></div>
+                                    <button className="strictBtn"></button>
+                                    <h3 className="subTitle">STRICT</h3>
+                                </div>
+                            </div>
                             <div className="switcher">
-                            <Switch/>
+                                <Switch/>
                             </div>
                         </div>
                     </div>

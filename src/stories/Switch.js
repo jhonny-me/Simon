@@ -24,12 +24,12 @@ export default class Switch extends Component {
     render() {
         return (
             <div>
-                <i>OFF</i>
+                <i>OFF </i>
                 <label className="switch">
                     <input type="checkbox"/>
                         <div className="slider"></div>
                 </label>
-                <i>ON</i>
+                <i> ON</i>
             </div>
         );
     }
