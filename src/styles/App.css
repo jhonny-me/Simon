@@ -13,6 +13,7 @@
     top: 3.33%;
     width: 45%;
     height: 45%;
+    outline: none;
     border-top-left-radius: 100%;
     position: absolute;
 }
@@ -23,6 +24,7 @@
     top: 3.33%;
     width: 45%;
     height: 45%;
+    outline: none;
     border-top-right-radius: 100%;
     position: absolute;
 }
@@ -33,6 +35,7 @@
     bottom: 3.33%;
     width: 45%;
     height: 45%;
+    outline: none;
     border-bottom-right-radius: 100%;
     position: absolute;
 }
@@ -43,6 +46,7 @@
     bottom: 3.33%;
     width: 45%;
     height: 45%;
+    outline: none;
     border-bottom-left-radius: 100%;
     position: absolute;
 }
@@ -58,4 +62,18 @@
     position: absolute;
 }
 
+.centralControl > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.centralControl > div > h2 {
+    text-align: center;
+    position: absolute;
+    width: 100px;
+    margin: 0.83em 0.6em;
+}
 

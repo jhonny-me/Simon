@@ -11,6 +11,8 @@ build
 
 # compile
 *-compiled*
+.idea/*
+.xml
 
 # misc
 .DS_Store

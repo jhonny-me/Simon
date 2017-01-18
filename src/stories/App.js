@@ -10,12 +10,14 @@ export default class App extends Component {
         return (
             <div className="container">
                 <div>
-                    <i className="greenBtn"></i>
-                    <i className="redBtn"></i>
-                    <i className="blueBtn"></i>
-                    <i className="yellowBtn"></i>
+                    <button className="greenBtn"></button>
+                    <button className="redBtn"></button>
+                    <button className="blueBtn"></button>
+                    <button className="yellowBtn"></button>
                     <div className="centralControl">
-                        <h2 style={{textAlign: 'center'}}>Simon™️</h2>
+                        <div>
+                            <h2>Simon™️</h2>
+                        </div>
                     </div>
                 </div>
             </div>
