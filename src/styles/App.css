@@ -77,3 +77,8 @@
     margin: 0.83em 0.6em;
 }
 
+.switcher {
+    position: absolute;
+    bottom: 10px;
+    left: 24px;
+}
