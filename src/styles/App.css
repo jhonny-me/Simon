@@ -137,3 +137,19 @@
     bottom: 6%;
     left: 26%;
 }
+
+.hightGreen {
+    background-color: lightgreen;
+}
+
+.hightRed {
+    background-color: orangered;
+}
+
+.hightBlue {
+    background-color: lightblue;
+}
+
+.hightYellow {
+    background-color: lightyellow;
+}

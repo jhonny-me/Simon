@@ -25,10 +25,20 @@ export default class App extends Component {
         const audio3 = new Audio(simon3);
         const audio4 = new Audio(simon4);
         this.contextProps = {
-            greenBtn: audio1,
-            redBtn: audio2,
-            blueBtn: audio3,
-            yellowBtn: audio4,
+            1: audio1,
+            2: audio2,
+            3: audio3,
+            4: audio4,
+            song: '',
+        };
+        this.colorClass = {
+            1: "hightGreen",
+            2: "hightRed",
+            3: "hightBlue",
+            4: "hightYellow",
+        };
+        this.btnRef = {
+
         };
     }
 
@@ -52,14 +62,66 @@ export default class App extends Component {
     };
 
     onStart = () => {
-        this.setState({count: 1});
+        // generate random song
+        var song = '';
+        while(song.length < 20) {
+            song += this.getRandomInt(1,4).toString();
+        }
+        this.contextProps.song = song;
+
+        // start autoplay
+        this.autoPlay(4)
     }
 
-    playSound = (e)=> {
-        const key = e.target.className;
+    autoPlay = (count) => {
+
+        const that = this;
+        const list = this.contextProps.song.slice(count).split('');
+
+        let num = 0;
+        const play = () => {
+            const key = list[num];
+            that.contextProps[key].play();
+            that.btnRef[key].className += " " + that.colorClass[key];
+            setTimeout(() => {
+                const newClass = that.btnRef[key].className.replace(that.colorClass[key], '');
+                that.btnRef[key].className = newClass;
+            }, 500);
+            setTimeout(() => {
+                // ...
+                if (num++ < count) {
+                    play();
+                }
+            }, 1000);
+        };
+
+        play();
+    }
+
+    // Returns a random integer between min (included) and max (excluded)
+// Using Math.round() will give you a non-uniform distribution!
+    getRandomInt = (min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    onMouseDown = (e)=> {
+        if (this.state.off) { return }
+        const key = e.target.id;
         console.log(key);
         this.contextProps[key].play();
+
+        e.target.className += " " + this.colorClass[e.target.id];
+        console.log(e.target.className)
     };
+
+    onMouseUp = (e)=> {
+        if (this.state.off) { return }
+        console.log(e.target.className);
+        const newClass = e.target.className.replace(this.colorClass[e.target.id], '');
+        e.target.className = newClass;
+    }
 
     render() {
         const {count, strict, off} = this.state;
@@ -68,11 +130,10 @@ export default class App extends Component {
         return (
             <div className="container">
                 <div>
-                    <button className="greenBtn" disabled={this.state.off} onClick={this.playSound}></button>
-                    {/*<audio id="greenAudio"  preload="auto" loop="true" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"></audio>*/}
-                    <button className="redBtn" disabled={this.state.off} onClick={this.playSound}></button>
-                    <button className="blueBtn" disabled={this.state.off} onClick={this.playSound}></button>
-                    <button className="yellowBtn" disabled={this.state.off} onClick={this.playSound}></button>
+                    <a className="greenBtn" id="1" ref={(a)=>{this.btnRef[1] = a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
+                    <a className="redBtn" id="2" ref={(a)=>{this.btnRef[2] =a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
+                    <a className="blueBtn" id="3" ref={(a)=>{this.btnRef[3]=a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
+                    <a className="yellowBtn" id="4" ref={(a)=>{this.btnRef[4]=a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
                     <div className="centralControl">
                         <div>
                             <h2>Simon™️</h2>
