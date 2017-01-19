@@ -8,17 +8,23 @@ export default class Switch extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: this.props.open
+            on: this.props.open
         }
     }
 
     static propTypes = {
-        open: PropTypes.bool,
+        on: PropTypes.bool,
         statusChanged: PropTypes.func,
     }
 
     static defaultProps = {
-        open: false
+        on: false
+    }
+
+    onClick = () => {
+        const on = this.state.on;
+        this.setState({on: !on});
+        this.props.statusChanged(on);
     }
 
     render() {
@@ -26,7 +32,7 @@ export default class Switch extends Component {
             <div>
                 <i>OFF </i>
                 <label className="switch">
-                    <input type="checkbox"/>
+                    <input type="checkbox" onClick={this.onClick}/>
                         <div className="slider"></div>
                 </label>
                 <i> ON</i>
