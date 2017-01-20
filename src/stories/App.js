@@ -17,6 +17,7 @@ export default class App extends Component {
             off: true,
             strict: false,
             count: 0,
+            error: false,
         };
         // init common use audio
         const audio1 = new Audio(simon1);
@@ -55,20 +56,38 @@ export default class App extends Component {
         if (!off) {
             this.reset()
         }
-        this.setState({off: !off});
+        this.setState({off: !off, strict: false});
     };
 
     reset = () => {
         this.control = {
             userInputCount: 0,
-            autoPlaying: false
+            autoPlaying: false,
+            userNotInteract: true
         };
-        this.setState({count: 0, strict: false});
+        this.setState({count: 0, error: false});
         var id = window.setTimeout(function() {}, 0);
 
         while (id--) {
             window.clearTimeout(id); // will do nothing if no timeout with id is present
         }
+        // reset color
+        for (var i=1;i<5;i++) {
+            const newClass = this.btnRef[i].className.replace(this.colorClass[i], '');
+            this.btnRef[i].className = newClass;
+        }
+    };
+
+    errorAlert = (func)=>{
+        console.log(this.state, this.control);
+        this.control.autoPlaying = true;
+        this.setState({error: true});
+        const that = this;
+        setTimeout(()=>{
+            that.setState({error: false});
+            that.control.autoPlaying = false;
+            func()
+        }, 1000)
     };
 
     onStrictChange = () => {
@@ -78,6 +97,7 @@ export default class App extends Component {
 
     onStart = () => {
         // generate random song
+        this.reset()
         var song = [];
         while(song.length < 20) {
             song.push(this.getRandomInt(1,4).toString());
@@ -95,7 +115,6 @@ export default class App extends Component {
     }
 
     autoPlay = (count) => {
-        console.log(count)
         if (this.state.off) { return }
         this.control.autoPlaying = true;
         const that = this;
@@ -120,9 +139,17 @@ export default class App extends Component {
                     setTimeout(()=>{
                         if (that.control.userNotInteract) {
                             // timeout case
-                            setTimeout(()=>{
-                                that.autoPlay(count);
-                            }, 1000)
+                            that.errorAlert(()=>{
+                                that.control.autoPlaying = true;
+                                setTimeout(()=>{
+                                    if (that.state.strict) {
+                                        that.reset();
+                                        that.onStart();
+                                    }else {
+                                        that.autoPlay(count);
+                                    }
+                                }, 1000)
+                            })
                         }
                     }, 3000)
                 }
@@ -141,8 +168,8 @@ export default class App extends Component {
     }
 
     onMouseDown = (e)=> {
-        if (this.state.off || this.state.autoPlaying) { return }
-        if (this.state.userInputCount > this.state.count) {
+        if (this.state.off || this.control.autoPlaying) { return }
+        if (this.control.userInputCount > this.state.count) {
             return
         }
         const key = e.target.id;
@@ -154,45 +181,57 @@ export default class App extends Component {
     };
 
     onMouseUp = (e)=> {
-        const {off,autoPlaying,userInputCount,count} = this.state;
+        const {off,count} = this.state;
+        const userInputCount = this.control.userInputCount;
+        const autoPlaying = this.control.autoPlaying;
+        debugger
         if (off || autoPlaying) { return }
         if (userInputCount > count) { return }
         const newClass = e.target.className.replace(this.colorClass[e.target.id], '');
         e.target.className = newClass;
         // do the check
-        debugger
         console.log(e.target.id, this.contextProps.song[userInputCount])
         if (e.target.id != this.contextProps.song[userInputCount]) {
             //error
-            if (this.state.strict) {
-                this.reset()
-                this.autoPlay(1)
-            }else {
-                const that = this;
-                this.setState({userInputCount: 0});
-                setTimeout(()=> {
-                    that.autoPlay(count + 1);
-                }, 1000)
-            }
+            const that = this;
+            this.errorAlert(()=>{
+                that.control.autoPlaying = true;
+                if (that.state.strict) {
+                    that.reset()
+                    that.onStart()
+                }else {
+                    that.control.userInputCount = 0;
+                    setTimeout(()=> {
+                        that.autoPlay(count + 1);
+                    }, 1000)
+                }
+            })
         }else {
 
             if (userInputCount === count) {
-                this.setState({count: count + 1, userInputCount: 0});
+                if (count == 19) {
+                    // win
+                    alert('You Win!!!');
+                    this.reset();
+                    this.onStart();
+                }
+                this.setState({count: count + 1});
+                this.control.userInputCount = 0;
                 const that = this
                 setTimeout(()=>{
                     that.autoPlay(count + 2)
                 }, 1000)
             }else {
-                this.setState({userInputCount: userInputCount + 1});
+                this.control.userInputCount += 1;
             }
         }
 
     }
 
     render() {
-        const {count, strict, off} = this.state;
+        const {count, strict, off, error} = this.state;
         const indicatorColor = strict ? 'orange' : 'black';
-        var countBox = off? '' : count === 0 ? '--' : ('0' + count.toString()).slice(-2)
+        var countBox = off? '' : error? '!!' : count === 0 ? '--' : ('0' + count.toString()).slice(-2)
         return (
             <div className="container">
                 <div>
