@@ -18,6 +18,7 @@ export default class App extends Component {
             strict: false,
             count: 0,
             error: false,
+            start: false,
         };
         // init common use audio
         const audio1 = new Audio(simon1);
@@ -56,7 +57,7 @@ export default class App extends Component {
         if (!off) {
             this.reset()
         }
-        this.setState({off: !off, strict: false});
+        this.setState({off: !off, strict: false, start: false});
     };
 
     reset = () => {
@@ -100,7 +101,7 @@ export default class App extends Component {
         }
         this.contextProps.song = song;
         this.control.userInputCount = 0;
-        this.setState({count:0});
+        this.setState({count:0, start: true});
         this.clearAllTimeout()
         // start autoplay
         this.autoPlay(1)
@@ -232,9 +233,9 @@ export default class App extends Component {
     }
 
     render() {
-        const {count, strict, off, error} = this.state;
+        const {count, strict, off, error, start} = this.state;
         const indicatorColor = strict ? 'orange' : 'black';
-        var countBox = off? '' : error? '!!' : count === 0 ? '--' : ('0' + count.toString()).slice(-2)
+        var countBox = off? '' : error? '!!' : !start? '--' : ('0' + (count+1).toString()).slice(-2)
         return (
             <div className="container">
                 <div>

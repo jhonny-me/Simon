@@ -4,6 +4,7 @@
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/build/static/js/main.eb9274b0-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/stories/Switch-compiled.js" />
+        <item url="file://$PROJECT_DIR$/docs/static/js/main.eb9274b0-compiled.js" />
         <item url="file://$PROJECT_DIR$/docs/static/js/main.18281091-compiled.js" />
         <item url="file://$PROJECT_DIR$/.storybook/config-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/stories/App-compiled.js" />
@@ -13,7 +14,10 @@
       <root url="file://$PROJECT_DIR$/build/static/js/main.18281091-compiled.js" />
       <root url="file://$PROJECT_DIR$/build/static/js/main.18281091-compiled.js" />
       <root url="file://$PROJECT_DIR$/build/static/js/main.eb9274b0-compiled.js" />
+      <root url="file://$PROJECT_DIR$/docs/static/js/main.18281091-compiled.js" />
+      <root url="file://$PROJECT_DIR$/build/static/js/main.eb9274b0-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/stories/Switch-compiled.js" />
+      <root url="file://$PROJECT_DIR$/docs/static/js/main.eb9274b0-compiled.js" />
       <root url="file://$PROJECT_DIR$/docs/static/js/main.18281091-compiled.js" />
       <root url="file://$PROJECT_DIR$/.storybook/config-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/stories/App-compiled.js" />
