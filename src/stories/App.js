@@ -66,11 +66,7 @@ export default class App extends Component {
             userNotInteract: true
         };
         this.setState({count: 0, error: false});
-        var id = window.setTimeout(function() {}, 0);
-
-        while (id--) {
-            window.clearTimeout(id); // will do nothing if no timeout with id is present
-        }
+        this.clearAllTimeout()
         // reset color
         for (var i=1;i<5;i++) {
             const newClass = this.btnRef[i].className.replace(this.colorClass[i], '');
@@ -79,7 +75,7 @@ export default class App extends Component {
     };
 
     errorAlert = (func)=>{
-        console.log(this.state, this.control);
+        if (this.state.error) { return }
         this.control.autoPlaying = true;
         this.setState({error: true});
         const that = this;
@@ -105,17 +101,23 @@ export default class App extends Component {
         this.contextProps.song = song;
         this.control.userInputCount = 0;
         this.setState({count:0});
+        this.clearAllTimeout()
+        // start autoplay
+        this.autoPlay(1)
+    }
+
+    clearAllTimeout =()=>{
         var id = window.setTimeout(function() {}, 0);
 
         while (id--) {
             window.clearTimeout(id); // will do nothing if no timeout with id is present
         }
-        // start autoplay
-        this.autoPlay(1)
     }
 
     autoPlay = (count) => {
         if (this.state.off) { return }
+        // clear all timeout
+        this.clearAllTimeout()
         this.control.autoPlaying = true;
         const that = this;
         const list = this.contextProps.song;
@@ -138,6 +140,7 @@ export default class App extends Component {
                     that.control.userNotInteract = true;
                     setTimeout(()=>{
                         if (that.control.userNotInteract) {
+                            console.log('Time out! ', that.state, that.control);
                             // timeout case
                             that.errorAlert(()=>{
                                 that.control.autoPlaying = true;
@@ -190,9 +193,9 @@ export default class App extends Component {
         const newClass = e.target.className.replace(this.colorClass[e.target.id], '');
         e.target.className = newClass;
         // do the check
-        console.log(e.target.id, this.contextProps.song[userInputCount])
         if (e.target.id != this.contextProps.song[userInputCount]) {
             //error
+            console.log('Error ', this.state, this.control);
             const that = this;
             this.errorAlert(()=>{
                 that.control.autoPlaying = true;
@@ -235,10 +238,10 @@ export default class App extends Component {
         return (
             <div className="container">
                 <div>
-                    <a className="greenBtn" id="1" ref={(a)=>{this.btnRef[1] = a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
-                    <a className="redBtn" id="2" ref={(a)=>{this.btnRef[2] =a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
-                    <a className="blueBtn" id="3" ref={(a)=>{this.btnRef[3]=a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
-                    <a className="yellowBtn" id="4" ref={(a)=>{this.btnRef[4]=a}} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
+                    <a className="greenBtn" id="1" ref={(a)=>{this.btnRef[1] = a}} onTouchStart={this.onMouseDown} onTouchEnd={this.onMouseUp} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
+                    <a className="redBtn" id="2" ref={(a)=>{this.btnRef[2] =a}} onTouchStart={this.onMouseDown} onTouchEnd={this.onMouseUp} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
+                    <a className="blueBtn" id="3" ref={(a)=>{this.btnRef[3]=a}} onTouchStart={this.onMouseDown} onTouchEnd={this.onMouseUp} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
+                    <a className="yellowBtn" id="4" ref={(a)=>{this.btnRef[4]=a}} onTouchStart={this.onMouseDown} onTouchEnd={this.onMouseUp} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}></a>
                     <div className="centralControl">
                         <div>
                             <h2>Simon™️</h2>
